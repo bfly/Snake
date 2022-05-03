@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.*;
 
 public class GameManager {
-    static final char EMPTY = ' ';
-    static final char WALL = 'W';
-    static final char SNAKE = '$';
-    static final char FOOD = '*';
-    static final int NO_OF_SNAKES = 1;
-    static final boolean seeded = false;
+    public static final char EMPTY = ' ';
+    public static final char WALL = 'W';
+    public static final char SNAKE = '$';
+    public static final char FOOD = '*';
+    public static final int NO_OF_SNAKES = 1;
     static final int NO_OF_FOOD = 10;
+    static final boolean seeded = false;
 
     Scanner kbd;
 
@@ -21,6 +21,7 @@ public class GameManager {
     List<Double> foodDist = new ArrayList<>();
 
     Item[][] items;
+    SnakeGUI gui;
 
     private void go(int food) {
         playGame(food);
@@ -132,7 +133,7 @@ public class GameManager {
         kbd = new Scanner(System.in);
         char dir = ' ';
         while (dir != 'q') {
-            System.out.println(this);
+            gui.replaceGamePanel();
             System.out.println("Enter e(up), s(left), f(right), x(down) or q(uit)");
             if (food == 0) {
                 System.out.println("Snake found all of the food.");
@@ -203,7 +204,7 @@ public class GameManager {
         return items;
     }
 
-    void setMaze(Item[][] maze) {
+    public void setMaze(Item[][] maze) {
         items = maze;
     }
 
@@ -250,8 +251,7 @@ public class GameManager {
 
         setSnakeHead(spotSnake());
 
-        shortestPathToFood();
-
+        gui = new SnakeGUI(this);
     }
 
     public static void main(String[] args) {
